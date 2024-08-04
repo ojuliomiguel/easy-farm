@@ -1,12 +1,28 @@
 import { Farmer } from '@domain/entities/Farmer';
 import { FarmerGateway } from '@domain/gateway/farmer.gateway';
+import { Inject, Injectable } from '@nestjs/common';
+import { OrmRepositoryAdapter } from 'src/infra/adapters/database/orm-repository-adapter';
 
+@Injectable()
 export class FarmerDatabaseGateway implements FarmerGateway {
-  getById(id: string): Promise<Farmer | null> {
-    throw new Error('Method not implemented.');
+
+  constructor(
+    @Inject('FARMER_REPOSITORY')
+    private readonly ormRepositoryAdapter: OrmRepositoryAdapter<any>
+  ) { }
+  find(params: any): Promise<Farmer | null> {
+    return this.ormRepositoryAdapter.find(params);
   }
-  save(farmer: Farmer): Promise<void> {
-    throw new Error('Method not implemented.');
+
+  getById(id: string): Promise<any> {
+    return this.ormRepositoryAdapter.getById('');
+  }
+  async save(farmer: Farmer): Promise<void> {
+    await this.ormRepositoryAdapter.save({
+      name: farmer.getName(),
+      cpf: farmer.getCPF(),
+      cnpj: farmer.getCNPJ(),
+    });
   }
   update(farmer: Farmer): Promise<void> {
     throw new Error('Method not implemented.');

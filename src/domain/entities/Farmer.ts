@@ -2,13 +2,12 @@ import { GUID } from '@domain/commom/domain.types';
 
 export class Farmer {
 
-
   private constructor(
     private readonly id: GUID | null,
     private readonly name: string,
     private readonly cpf: string | null,
     private readonly cnpj: string | null,
-    private readonly farms: any[],
+    private readonly farms: any[] | null,
   ) {
     if (!cpf && !cnpj) {
       throw new Error('A farmer must have either a CPF or a CNPJ');
@@ -19,9 +18,8 @@ export class Farmer {
     name: string,
     cpf: string | null,
     cnpj: string | null,
-    farms: any[],
   ): Farmer {
-    return new Farmer(null, name, cpf, cnpj, farms);
+    return new Farmer(null, name, cpf, cnpj, null);
   }
 
   public static restore(
