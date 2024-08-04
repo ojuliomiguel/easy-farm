@@ -1,0 +1,35 @@
+version: '3'
+services:
+  pg-db:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=easy_farm_admin
+      - POSTGRES_PASSWORD=@we_are_easy
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg-db:/var/lib/postgresql/data  
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATABASE_HOST=pg-db
+      - DATABASE_USER=easy_farm_admin
+      - DATABASE_PASS=@we_are_easy
+      - DATABASE_SCHEMA=postgres
+    ports:
+      - '3007:3007'
+    command: yarn run start:dev  
+    working_dir: /app
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    depends_on:
+      - pg-db  
+      
+volumes:
+  pg-db:
+    driver: local
