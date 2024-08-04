@@ -15,14 +15,28 @@ export class FarmerDatabaseGateway implements FarmerGateway {
   }
 
   getById(id: string): Promise<any> {
-    return this.ormRepositoryAdapter.getById('');
+    return this.ormRepositoryAdapter.getById(id);
   }
   async save(farmer: Farmer): Promise<void> {
-    await this.ormRepositoryAdapter.save({
+    const dataToSave = {
       name: farmer.getName(),
       cpf: farmer.getCPF(),
       cnpj: farmer.getCNPJ(),
-    });
+      farms: farmer.getFarms().map(f => {
+        return {
+          name: f.getName(),
+          farmArea: {
+            totalArea: f.getArea().getTotalArea(),
+            cultivableArea: f.getArea().getCultivableArea(),
+            vegetationArea: f.getArea().getVegetationArea(),
+          },
+          cultivationArea: {
+            name: f.getCultivationArea().getName(),
+          },
+        };
+      }),
+    }
+    await this.ormRepositoryAdapter.save(dataToSave);
   }
   update(farmer: Farmer): Promise<void> {
     throw new Error('Method not implemented.');

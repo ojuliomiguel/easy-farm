@@ -4,7 +4,7 @@ import { FarmerDatabaseGateway } from './farmer-database-gateway';
 import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
 import { Farmer } from './typeorm/entities/farmer.entity';
 import { Repository } from 'typeorm';
-import { TypeOrmRepositoryAdapter } from 'src/infra/adapters/database/TypeOrmRepositoryAdapter';
+import { TypeOrmRepositoryAdapter } from 'src/infra/adapters/database/type-orm-repository-adapter';
 
 const FarmerGatewayProvider = {
   provide: FARMER_GATEWAY_INTERFACE,

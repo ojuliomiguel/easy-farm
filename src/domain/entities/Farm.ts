@@ -12,11 +12,11 @@ export class Farm {
 
   static create(
     name: string,
-    address: any,
     area: FarmArea,
+    address: any,
     crops: any[],
   ): Farm {
-    return new Farm(null, name, address, area, crops);
+    return new Farm(null, name, area, null, crops);
   }
 
   static restore(
