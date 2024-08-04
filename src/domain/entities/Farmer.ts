@@ -1,27 +1,18 @@
-type GUID = string;
+import { GUID } from '@domain/commom/domain.types';
 
 export class Farmer {
-  private readonly id: GUID | null;
-  private readonly cpf: string | null;
-  private readonly cnpj: string | null;
-  private readonly name: string;
-  private readonly farms: any[];
+
 
   private constructor(
-    id: GUID | null,
-    name: string,
-    cpf: string | null,
-    cnpj: string | null,
-    farms: any[],
+    private readonly id: GUID | null,
+    private readonly name: string,
+    private readonly cpf: string | null,
+    private readonly cnpj: string | null,
+    private readonly farms: any[],
   ) {
     if (!cpf && !cnpj) {
       throw new Error('A farmer must have either a CPF or a CNPJ');
     }
-    this.id = id;
-    this.name = name;
-    this.cpf = cpf;
-    this.cnpj = cnpj;
-    this.farms = farms;
   }
 
   public static create(
