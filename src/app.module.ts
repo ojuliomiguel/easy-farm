@@ -17,7 +17,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         username: configService.get<string>('DATABASE_USER'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+        entities: ["dist/**/*.entity.js"],
         synchronize: true, 
       }),
       inject: [ConfigService],
