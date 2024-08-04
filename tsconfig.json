@@ -12,6 +12,7 @@
     "baseUrl": "./",
     "paths": {
       "@domain/*": ["src/domain/*"],
+      "@application/usecases/*": ["src/application/usecases/*"],
       "@test/fixtures/*": ["test/fixtures/*"]
     },
     "incremental": true,

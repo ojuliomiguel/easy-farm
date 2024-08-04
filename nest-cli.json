@@ -3,9 +3,8 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "paths": {
-    "@domain/*": [
-      "src/domain/*"
-    ]
+    "@domain/*": ["src/domain/*"],
+    "@application/usecases/*": ["src/application/usecases/*"]
   },
   "compilerOptions": {
     "deleteOutDir": true
