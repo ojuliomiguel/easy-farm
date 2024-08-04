@@ -22,5 +22,23 @@ Easy Farm é uma aplicação desenvolvida seguindo os princípios de Clean Archi
 
 A estrutura do projeto é organizada em camadas, conforme a Clean Architecture:
 
+```
+src/
+├── application/
+│   └── usecases/
+│       └── farmer/
+├── domain/
+│   ├── common/
+│   ├── entities/
+│   └── gateway/
+├── infra/
+│   ├── adapters/
+│   ├── database/
+│   └── http/
+├── app.module.ts
+└── main.ts
+
+```
+
 
 
