@@ -1,3 +1,6 @@
+# Considerações Iniciais
+A aplicação Easy Farm ainda não foi completamente estabilizada, pois o foco principal do desenvolvimento foi centrado no domínio. Foi realizada a implantação na AWS utilizando ECS (Elastic Container Service) e ALB (Application Load Balancer). Embora a aplicação esteja funcionando, ela ainda necessita de algumas atualizações que serão realizadas em um momento oportuno.
+
 # Easy Farm - Cadastro de Produtores Rurais
 
 ## Descrição
