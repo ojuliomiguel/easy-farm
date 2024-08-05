@@ -5,8 +5,8 @@ export class Farm {
   private constructor(
     private readonly id: GUID | null,
     private readonly name: string,
-    private readonly address: any,
     private readonly area: FarmArea,
+    private readonly address: any,
     private readonly crops: any[],
   ) {}
 

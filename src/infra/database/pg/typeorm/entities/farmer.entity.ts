@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Farm } from './farm.entity';
 
-@Entity()
-export class Farmer {
+@Entity('farmer')
+export class FarmerTypeOrmEntity {
 
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -16,6 +16,6 @@ export class Farmer {
   @Column({ type: 'varchar', length: 14, nullable: true, unique: true })
   cnpj: string | null;
 
-  @OneToMany(() => Farm, farm => farm.farmer)
-  farm: Farm[];
+  @OneToMany(() => Farm, farm => farm.farmer, { cascade: true })
+  farms: Farm[];
 }

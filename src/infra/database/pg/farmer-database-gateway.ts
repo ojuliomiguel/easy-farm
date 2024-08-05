@@ -1,43 +1,54 @@
-import { Farmer } from '@domain/entities/Farmer';
 import { FarmerGateway } from '@domain/gateway/farmer.gateway';
-import { Inject, Injectable } from '@nestjs/common';
-import { OrmRepositoryAdapter } from 'src/infra/adapters/database/orm-repository-adapter';
+import { Injectable } from '@nestjs/common';
+import { Farm } from './typeorm/entities/farm.entity';
+import { FarmerTypeOrmEntity } from './typeorm/entities/farmer.entity';
+import { DataSource } from 'typeorm';
+import { Farmer } from '@domain/entities/Farmer';
+import { FarmArea } from './typeorm/entities/farm-area.entity';
+import { CultivationArea } from './typeorm/entities/cultivation-area.entity';
+
 
 @Injectable()
 export class FarmerDatabaseGateway implements FarmerGateway {
 
   constructor(
-    @Inject('FARMER_REPOSITORY')
-    private readonly ormRepositoryAdapter: OrmRepositoryAdapter<any>
-  ) { }
+    private readonly dataSource: DataSource
+  ) {
+    console.log("DataSource initialized: ", this.dataSource.isInitialized);
+  }
   find(params: any): Promise<Farmer | null> {
-    return this.ormRepositoryAdapter.find(params);
+    return null;
   }
 
-  getById(id: string): Promise<any> {
-    return this.ormRepositoryAdapter.getById(id);
+  async getById(id: string): Promise<any> {
+    return await this.dataSource
+      .getRepository(FarmerTypeOrmEntity)
+      .findOne({ where: { id } });
   }
   async save(farmer: Farmer): Promise<void> {
-    const dataToSave = {
-      name: farmer.getName(),
-      cpf: farmer.getCPF(),
-      cnpj: farmer.getCNPJ(),
-      farms: farmer.getFarms().map(f => {
-        return {
-          name: f.getName(),
-          farmArea: {
-            totalArea: f.getArea().getTotalArea(),
-            cultivableArea: f.getArea().getCultivableArea(),
-            vegetationArea: f.getArea().getVegetationArea(),
-          },
-          cultivationArea: {
-            name: f.getCultivationArea().getName(),
-          },
-        };
-      }),
+    const farmerTypeOrmEntity = new FarmerTypeOrmEntity();
+    farmerTypeOrmEntity.name = farmer.getName();
+    farmerTypeOrmEntity.cpf = farmer.getCPF();
+    farmerTypeOrmEntity.cnpj = farmer.getCNPJ();
+    const farmsTypeOrmEntity = farmer.getFarms().map(f => {
+      const farmTypeOrmEntity = new Farm();
+      farmTypeOrmEntity.name = f.getName();
+      farmTypeOrmEntity.farmArea = new FarmArea()
+      farmTypeOrmEntity.farmArea.totalArea = f.getArea().getTotalArea();
+      farmTypeOrmEntity.farmArea.cultivableArea = f.getArea().getCultivableArea();
+      farmTypeOrmEntity.farmArea.vegetationArea = f.getArea().getVegetationArea();
+      return farmTypeOrmEntity;
+    });
+    farmerTypeOrmEntity.farms = farmsTypeOrmEntity;
+    const farmerRepository = this.dataSource.getRepository(FarmerTypeOrmEntity);
+    try {
+      const savedFarmer = await farmerRepository.save(farmerTypeOrmEntity);
+      console.log('Farmer with relations saved successfully:', savedFarmer);
+    } catch (error) {
+      console.error('Error saving farmer with relations:', error);
     }
-    await this.ormRepositoryAdapter.save(dataToSave);
   }
+
   update(farmer: Farmer): Promise<void> {
     throw new Error('Method not implemented.');
   }

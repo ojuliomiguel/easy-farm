@@ -24,9 +24,9 @@ export class RegisterFarmerUseCase {
 
     const farms = input.farms.map((farmInput: any) => {
       const farmArea =  new FarmArea(
-        farmInput.farmArea.area,
-        farmInput.farmArea.areaCultivated,
-        farmInput.farmArea.areaVegetation
+        farmInput.farmArea.totalArea,
+        farmInput.farmArea.cultivableArea,
+        farmInput.farmArea.vegetationArea
       )
       return Farm.create(
         farmInput.name,

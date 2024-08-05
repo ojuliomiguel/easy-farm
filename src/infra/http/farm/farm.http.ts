@@ -17,10 +17,11 @@ export class FarmerHttpApi {
   ) { }
 
   @Get(':id')
-  getById(
+  async getById(
     @Param('id') id: string,
   ) {
-    return this.farmerGateway.getById(id);
+    const farmer = await this.farmerGateway.getById(id);
+    return farmer;
   }
 
   @Post(':id/farms')

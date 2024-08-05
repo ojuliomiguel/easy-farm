@@ -21,7 +21,7 @@ export class FarmArea {
     if (vegetationArea < 0) {
       throw new Error('Vegetation area cannot be negative');
     }
-    if (cultivableArea + vegetationArea > totalArea) {
+    if ((cultivableArea + vegetationArea) > totalArea) {
       throw new Error(
         'Sum of cultivable and vegetation areas cannot exceed total area',
       );

@@ -15,7 +15,4 @@ export class FarmArea {
 
   @Column('float')
   vegetationArea: number;
-
-  @OneToOne(() => Farm, farm => farm.farmArea, { cascade: true })
-  farm: Farm;
 }
