@@ -20,15 +20,18 @@ export class FarmerDatabaseGateway implements FarmerGateway {
     console.log("DataSource initialized: ", this.dataSource.isInitialized);
     this.farmerRepository = this.dataSource.getRepository(FarmerTypeOrmEntity);
   }
-  find(params: any): Promise<Farmer | null> {
-    return null;
+  async find(params: any): Promise<Farmer | null> {
+    return await this.farmerRepository.find({
+      ...params,
+      relations: ['farms', 'farms.address', 'farms.farmArea', 'farms.cultivationAreas'],
+    });
   }
 
   async getById(id: string): Promise<any> {
     return await this.farmerRepository
       .findOne({
         where: { id },
-        relations: ['farms', 'farms.farmArea', 'farms.cultivationArea'],
+        relations: ['farms', 'farms.address', 'farms.farmArea', 'farms.cultivationAreas'],
       });
   }
 

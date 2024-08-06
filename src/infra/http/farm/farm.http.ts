@@ -4,7 +4,7 @@ import {
 } from '@domain/gateway/farmer.gateway';
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Param, Post } from '@nestjs/common';
 import { RegisterFarmerUseCase } from 'src/application/usecases/farmer/register-farmer.usecase';
-import { CreateFarmerDTO } from '../farm-context.dtos';
+import { CreateFarmerDTO } from '../easy-farm-context.dtos';
 
 @Controller({
   path: 'farmers',

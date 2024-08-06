@@ -8,4 +8,8 @@ export class ListFarmerUseCase {
   async getById(id: string): Promise<Farmer> {
     return await this.farmerGateway.getById(id);
   }
+
+  async list(input: any): Promise<Farmer | Farmer[]> {
+    return await this.farmerGateway.find({});
+  }
 }

@@ -4,7 +4,7 @@ import {
 } from '@domain/gateway/farmer.gateway';
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Post } from '@nestjs/common';
 import { RegisterFarmerUseCase } from 'src/application/usecases/farmer/register-farmer.usecase';
-import { CreateFarmerDTO } from '../farm-context.dtos';
+import { CreateFarmerDTO } from '../easy-farm-context.dtos';
 import { ListFarmerUseCase } from '@application/usecases/farmer/list-farmer.usecase';
 import { DeleteFarmerUseCase } from '@application/usecases/farmer/delete-farmer.usecase';
 
@@ -24,6 +24,13 @@ export class FarmerHttpApi {
   ) {
     const useCase = new ListFarmerUseCase(this.farmerGateway);
     return await useCase.getById(id);
+  }
+
+  @Get()
+  async list(
+  ) {
+    const useCase = new ListFarmerUseCase(this.farmerGateway);
+    return await useCase.list({});
   }
 
   @Post()
