@@ -5,21 +5,21 @@ import { Farm } from "@domain/entities/Farm";
 import { FarmArea } from "@domain/entities/FarmArea";
 import { Address } from "@domain/entities/Adress";
 import { Crop } from "@domain/entities/Crop";
+import { FarmerAlreadyExists, MissingCpfOrCnpjException } from "src/application/erros/easy-farm-context.exceptions";
 
 export class RegisterFarmerUseCase {
   constructor(private readonly farmerGateway: FarmerGateway) { }
 
   async execute(input: RegisterFarmerUseCaseInput): Promise<void> {
     if (!input.cpf && !input.cnpj) {
-      throw new Error('A farmer must have either a CPF or a CNPJ');
+      throw new MissingCpfOrCnpjException('A farmer must have either a CPF or a CNPJ');
     }
     const farmerExists = await this.farmerGateway.find({
-      where: {
-        cpf: input.cpf
-      }
-    })
+      where: input.cpf ? { cpf: input.cpf } : { cnpj: input.cnpj }
+    });
+    
     if (farmerExists) {
-      throw new Error('Farmer already exists');
+      throw new FarmerAlreadyExists('Farmer already exists');
     }
     const farms = input.farms.map((farmInput: FarmInput) => {
       const farmArea = new FarmArea(

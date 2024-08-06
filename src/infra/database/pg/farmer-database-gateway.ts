@@ -22,7 +22,7 @@ export class FarmerDatabaseGateway implements FarmerGateway {
   }
   async find(params: any): Promise<Farmer | null> {
     return await this.farmerRepository.find({
-      ...params,
+      params,
       relations: ['farms', 'farms.address', 'farms.farmArea', 'farms.cultivationAreas'],
     });
   }
