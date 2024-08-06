@@ -23,15 +23,23 @@ export class FarmerHttpApi {
   async getById(
     @Param('id') id: string,
   ) {
-    const useCase = new ListFarmerUseCase(this.farmerGateway);
-    return await useCase.getById(id);
+    try {
+      const useCase = new ListFarmerUseCase(this.farmerGateway);
+      return await useCase.getById(id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Get()
   async list(
   ) {
-    const useCase = new ListFarmerUseCase(this.farmerGateway);
-    return await useCase.list({});
+    try {
+      const useCase = new ListFarmerUseCase(this.farmerGateway);
+      return await useCase.list({});
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Post()
