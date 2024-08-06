@@ -8,6 +8,7 @@ import { CreateFarmerDTO } from '../easy-farm-context.dtos';
 import { ListFarmerUseCase } from '@application/usecases/farmer/list-farmer.usecase';
 import { DeleteFarmerUseCase } from '@application/usecases/farmer/delete-farmer.usecase';
 import { FarmerAlreadyExists, MissingCpfOrCnpjException } from 'src/application/erros/easy-farm-context.exceptions';
+import { FarmAreaException } from '@domain/errors/farm-area.errors';
 
 @Controller({
   path: 'farmers',
@@ -51,7 +52,8 @@ export class FarmerHttpApi {
     } catch (error) {
       if (
         error instanceof MissingCpfOrCnpjException ||
-        error instanceof FarmerAlreadyExists
+        error instanceof FarmerAlreadyExists || 
+        error instanceof FarmAreaException
       ) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
       } else {

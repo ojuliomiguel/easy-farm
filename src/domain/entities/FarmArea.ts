@@ -1,3 +1,5 @@
+import { FarmAreaException } from "@domain/errors/farm-area.errors";
+
 export class FarmArea {
   constructor(
     private readonly totalArea: number,
@@ -13,16 +15,16 @@ export class FarmArea {
     vegetationArea: number,
   ): void {
     if (totalArea <= 0) {
-      throw new Error('Total area must be greater than zero');
+      throw new FarmAreaException('Total area must be greater than zero');
     }
     if (cultivableArea < 0) {
-      throw new Error('Cultivable area cannot be negative');
+      throw new FarmAreaException('Cultivable area cannot be negative');
     }
     if (vegetationArea < 0) {
-      throw new Error('Vegetation area cannot be negative');
+      throw new FarmAreaException('Vegetation area cannot be negative');
     }
     if ((cultivableArea + vegetationArea) > totalArea) {
-      throw new Error(
+      throw new FarmAreaException(
         'Sum of cultivable and vegetation areas cannot exceed total area',
       );
     }
