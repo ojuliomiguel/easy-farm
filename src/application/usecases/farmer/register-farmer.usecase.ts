@@ -14,11 +14,10 @@ export class RegisterFarmerUseCase {
     if (!input.cpf && !input.cnpj) {
       throw new MissingCpfOrCnpjException('A farmer must have either a CPF or a CNPJ');
     }
-    const farmerExists = await this.farmerGateway.find({
-      where: input.cpf ? { cpf: input.cpf } : { cnpj: input.cnpj }
-    });
+    const searchParams = input.cpf ? { cpf: input.cpf } : { cnpj: input.cnpj };
+    const farmerExists = await this.farmerGateway.find(searchParams);
     
-    if (farmerExists) {
+    if (farmerExists?.length > 0) {
       throw new FarmerAlreadyExists('Farmer already exists');
     }
     const farms = input.farms.map((farmInput: FarmInput) => {

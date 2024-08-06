@@ -63,7 +63,11 @@ export class FarmerHttpApi {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id') id: string) {
-    const useCase = new DeleteFarmerUseCase(this.farmerGateway);
-    await useCase.execute(id);
+    try {
+      const useCase = new DeleteFarmerUseCase(this.farmerGateway);
+      await useCase.execute(id);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 }
