@@ -80,3 +80,7 @@ Exceção lançada quando um agricultor com o mesmo CPF ou CNPJ já existe.
 ### MissingCpfOrCnpjException
 
 Exceção lançada quando CPF ou CNPJ está ausente na requisição de criação do agricultor.
+
+### FarmAreaException
+
+Exceção lançada quando fornecido uma área de cultivo inválida.

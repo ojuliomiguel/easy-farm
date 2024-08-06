@@ -7,6 +7,7 @@ A aplicação Easy Farm ainda não foi completamente estabilizada, pois o foco p
 
 Easy Farm é uma aplicação desenvolvida seguindo os princípios de Clean Architecture. A aplicação permite o cadastro de produtores rurais com informações detalhadas sobre suas fazendas e culturas plantadas.
 
+
 ## [Documentação dos endpoints](./rest.md)
 
 ## Estrutura do Projeto
@@ -47,6 +48,7 @@ src/
   - Área agricultável em hectares
   - Área de vegetação em hectares
   - Culturas plantadas (Soja, Milho, Algodão, Café, Cana de Açúcar)
+  - Validação das áreas da fazenda
 
 
 
