@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 import { Farm } from './farm.entity';
 
 @Entity()
@@ -10,6 +10,6 @@ export class CultivationArea {
   @Column({ type: 'varchar', length: 255 })
   name: string;
 
-  @OneToMany(() => Farm, farm => farm.cultivationArea)
-  farms: Farm[];
+  @ManyToOne(() => Farm, farm => farm.cultivationAreas, { onDelete: 'CASCADE' })
+  farm: Farm;
 }

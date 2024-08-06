@@ -16,6 +16,6 @@ export class FarmerTypeOrmEntity {
   @Column({ type: 'varchar', length: 14, nullable: true, unique: true })
   cnpj: string | null;
 
-  @OneToMany(() => Farm, farm => farm.farmer, { cascade: true })
+  @OneToMany(() => Farm, farm => farm.farmer, { cascade: true, onDelete: 'CASCADE' })
   farms: Farm[];
 }

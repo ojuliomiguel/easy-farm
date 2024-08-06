@@ -42,22 +42,39 @@ export class CultivationAreaDto {
   @IsNotEmpty()
   @Length(1, 255)
   name: string;
+
 }
 
+export class AddressDTO {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  state: string;
+}
 
 export class FarmDTO {
   @IsNotEmpty()
   @IsString()
   name: string;
 
+  @IsNotEmpty()
+  @ValidateNested()
+  @Type(() => AddressDTO)
+  address: AddressDTO;
+
+  @IsNotEmpty()
   @ValidateNested()
   @Type(() => FarmAreaDTO)
   farmArea: FarmAreaDTO;
 
-  @ValidateNested()
+  @IsNotEmpty()
+  @IsArray()
+  @ValidateNested({ each: true })
   @Type(() => CultivationAreaDto)
-  cultivationArea: CultivationAreaDto;
+  cultivationAreas: CultivationAreaDto[];
 }
-
 
 

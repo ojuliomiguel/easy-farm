@@ -1,5 +1,7 @@
 import { GUID } from '@domain/commom/domain.types';
 import { FarmArea } from './FarmArea';
+import { Address } from './Adress';
+import { Crop } from './Crop';
 
 export class Farm {
   private constructor(
@@ -8,25 +10,25 @@ export class Farm {
     private readonly area: FarmArea,
     private readonly address: any,
     private readonly crops: any[],
-  ) {}
+  ) { }
 
   static create(
     name: string,
     area: FarmArea,
-    address: any,
-    crops: any[],
+    address: Address,
+    crops: Crop[],
   ): Farm {
-    return new Farm(null, name, area, null, crops);
+    return new Farm(null, name, area, address, crops);
   }
 
   static restore(
     id: GUID,
     name: string,
-    address: any,
+    address: Address,
     area: FarmArea,
-    crops: any[],
+    crops: Crop[],
   ): Farm {
-    return new Farm(id, name, address, area, crops);
+    return new Farm(id, name, area, address, crops);
   }
 
   getId(): GUID | null {
@@ -37,7 +39,7 @@ export class Farm {
     return this.name;
   }
 
-  getAddress(): any {
+  getAddress(): Address {
     return this.address;
   }
 
@@ -45,7 +47,7 @@ export class Farm {
     return this.area;
   }
 
-  getCrops(): any[] {
+  getCrops(): Crop[] {
     return this.crops;
   }
 }

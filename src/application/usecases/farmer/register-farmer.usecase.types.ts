@@ -7,8 +7,9 @@ export interface RegisterFarmerUseCaseInput {
 
 export interface FarmInput {
   name: string;
+  address: AddressInput;
   farmArea: FarmAreaInput;
-  cultivationArea: CultivationAreaInput;
+  cultivationAreas: CultivationAreaInput[];
 }
 
 export interface FarmAreaInput {
@@ -19,4 +20,9 @@ export interface FarmAreaInput {
 
 export interface CultivationAreaInput {
   name: string;
+}
+
+export interface AddressInput {
+  name: string;
+  state: string;
 }
